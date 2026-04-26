@@ -1,0 +1,11 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="tubilBg" x1="10" y1="6" x2="54" y2="58" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#5eead4" />
+      <stop offset="1" stop-color="#0f766e" />
+    </linearGradient>
+  </defs>
+  <rect x="4" y="4" width="56" height="56" rx="16" fill="url(#tubilBg)" />
+  <path d="M18 20h28v6H35v22h-6V26H18v-6Z" fill="#ecfeff" />
+  <circle cx="48" cy="48" r="7" fill="#99f6e4" fill-opacity="0.9" />
+</svg>

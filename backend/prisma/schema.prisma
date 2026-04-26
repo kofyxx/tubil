@@ -1,0 +1,135 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum FuelType {
+  GASOLINE
+  DIESEL
+  PREMIUM
+}
+
+enum Region {
+  DAUIS
+  PANGLAO
+  BOHOL_PROPER
+}
+
+model User {
+  id           String        @id @default(cuid())
+  email        String        @unique
+  passwordHash String
+  displayName  String
+  points       Int           @default(0)
+  reliabilityScore Float     @default(0.5)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  vehicles     Vehicle[]
+  trips        Trip[]
+  refuels      Refuel[]
+  reports      FuelPrice[]
+  priceVotes   FuelPriceVote[]
+}
+
+model Vehicle {
+  id                String   @id @default(cuid())
+  userId            String
+  name              String
+  fuelType          FuelType
+  efficiencyKmPerL  Float
+  isPrimary         Boolean  @default(false)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  trips             Trip[]
+  refuels           Refuel[]
+
+  @@index([userId])
+}
+
+model Station {
+  id          String      @id @default(cuid())
+  osmId       String?     @unique
+  name        String
+  brand       String?
+  latitude    Decimal     @db.Decimal(10, 7)
+  longitude   Decimal     @db.Decimal(10, 7)
+  region      Region
+  address     String?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  fuelPrices  FuelPrice[]
+  refuels     Refuel[]
+
+  @@index([region])
+}
+
+model FuelPrice {
+  id            String   @id @default(cuid())
+  stationId     String
+  userId        String?
+  fuelType      FuelType
+  pricePerLiter Decimal  @db.Decimal(7, 2)
+  isVerified    Boolean  @default(false)
+  verificationScore Int  @default(0)
+  createdAt     DateTime @default(now())
+
+  station       Station  @relation(fields: [stationId], references: [id], onDelete: Cascade)
+  user          User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  votes         FuelPriceVote[]
+
+  @@index([stationId, createdAt])
+}
+
+model FuelPriceVote {
+  id          String   @id @default(cuid())
+  fuelPriceId String
+  voterId     String
+  isAccurate  Boolean
+  createdAt   DateTime @default(now())
+
+  fuelPrice   FuelPrice @relation(fields: [fuelPriceId], references: [id], onDelete: Cascade)
+  voter       User      @relation(fields: [voterId], references: [id], onDelete: Cascade)
+
+  @@unique([fuelPriceId, voterId])
+  @@index([fuelPriceId])
+  @@index([voterId])
+}
+
+model Trip {
+  id                String   @id @default(cuid())
+  userId            String
+  vehicleId         String
+  origin            String
+  destination       String
+  distanceKm        Float
+  durationMin       Float?
+  estimatedCost     Decimal  @db.Decimal(10, 2)
+  createdAt         DateTime @default(now())
+
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  vehicle           Vehicle  @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+}
+
+model Refuel {
+  id            String   @id @default(cuid())
+  userId        String
+  vehicleId     String
+  stationId     String
+  liters        Float
+  totalCost     Decimal  @db.Decimal(10, 2)
+  odometerKm    Float?
+  createdAt     DateTime @default(now())
+
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  vehicle       Vehicle  @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+  station       Station  @relation(fields: [stationId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+}

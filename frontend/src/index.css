@@ -1,0 +1,333 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap');
+
+:root {
+  font-family: 'Manrope', sans-serif;
+  color: #f7fbff;
+  background: #030712;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  overflow-y: scroll;
+  background:
+    radial-gradient(circle at 16% 14%, rgba(249, 214, 110, 0.14), transparent 26%),
+    radial-gradient(circle at 82% 12%, rgba(125, 211, 252, 0.09), transparent 24%),
+    linear-gradient(180deg, #060b16 0%, #02050b 100%);
+  background-attachment: fixed;
+  background-repeat: repeat;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background:
+    radial-gradient(circle at 16% 14%, rgba(249, 214, 110, 0.14), transparent 26%),
+    radial-gradient(circle at 82% 12%, rgba(125, 211, 252, 0.09), transparent 24%),
+    linear-gradient(180deg, #060b16 0%, #02050b 100%);
+  background-attachment: fixed;
+  color: #f7fbff;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.tubil-shell {
+  position: relative;
+  isolation: isolate;
+  overflow-x: hidden;
+  background: inherit;
+}
+
+.tubil-shell::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background-image:
+    linear-gradient(116deg, rgba(255, 251, 229, 0) 8%, rgba(255, 246, 197, 0.42) 30%, rgba(255, 246, 197, 0.2) 36%, rgba(255, 251, 229, 0) 52%),
+    linear-gradient(130deg, rgba(255, 251, 229, 0) 16%, rgba(125, 211, 252, 0.26) 40%, rgba(125, 211, 252, 0.07) 49%, rgba(255, 251, 229, 0) 61%),
+    linear-gradient(145deg, rgba(255, 251, 229, 0) 6%, rgba(255, 228, 145, 0.2) 28%, rgba(255, 228, 145, 0.03) 42%, rgba(255, 251, 229, 0) 58%),
+    radial-gradient(circle at 15% 12%, rgba(249, 214, 110, 0.2), transparent 24%),
+    radial-gradient(circle at 82% 11%, rgba(125, 211, 252, 0.12), transparent 26%);
+  mix-blend-mode: screen;
+  opacity: 0.96;
+}
+
+.tubil-shell::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background:
+    radial-gradient(circle at center, transparent 0%, rgba(2, 5, 11, 0.12) 58%, rgba(2, 5, 11, 0.48) 100%),
+    linear-gradient(180deg, rgba(2, 5, 11, 0.12), rgba(2, 5, 11, 0.5));
+}
+
+.tubil-shell > *:not(.tubil-ambient) {
+  position: relative;
+  z-index: 2;
+}
+
+.tubil-ambient {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.tubil-ray,
+.tubil-orb,
+.tubil-noise {
+  position: absolute;
+  will-change: transform, opacity;
+}
+
+.tubil-ray {
+  left: -24vw;
+  top: -14vh;
+  width: 126vw;
+  height: 30vh;
+  transform-origin: left center;
+  border-radius: 999px;
+  filter: blur(10px);
+  opacity: 0.98;
+  mix-blend-mode: screen;
+  animation: tubilRayFloat 18s ease-in-out infinite;
+}
+
+.tubil-ray::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, rgba(255, 248, 220, 0) 0%, rgba(255, 246, 195, 0.28) 24%, rgba(255, 248, 220, 0.94) 50%, rgba(255, 248, 220, 0.28) 74%, rgba(255, 248, 220, 0) 100%);
+}
+
+.tubil-ray--one {
+  transform: rotate(-18deg);
+  opacity: 0.82;
+}
+
+.tubil-ray--two {
+  top: 16vh;
+  left: -28vw;
+  transform: rotate(12deg);
+  opacity: 0.66;
+  animation-delay: -6s;
+}
+
+.tubil-ray--three {
+  top: 28vh;
+  left: -20vw;
+  width: 116vw;
+  transform: rotate(28deg);
+  opacity: 0.52;
+  animation-delay: -11s;
+}
+
+.tubil-orb {
+  border-radius: 999px;
+  filter: blur(16px);
+  opacity: 0.56;
+  animation: tubilOrbFloat 16s ease-in-out infinite;
+}
+
+.tubil-orb--one {
+  width: clamp(240px, 28vw, 420px);
+  height: clamp(240px, 28vw, 420px);
+  left: -6%;
+  top: 8%;
+  background: radial-gradient(circle at 35% 35%, rgba(255, 245, 204, 0.62), rgba(249, 214, 110, 0.12) 58%, transparent 72%);
+}
+
+.tubil-orb--two {
+  width: clamp(180px, 20vw, 320px);
+  height: clamp(180px, 20vw, 320px);
+  right: 2%;
+  top: 32%;
+  background: radial-gradient(circle at 50% 45%, rgba(125, 211, 252, 0.34), rgba(37, 99, 235, 0.08) 60%, transparent 78%);
+  animation-delay: -8s;
+}
+
+.tubil-noise {
+  inset: 0;
+  background-image:
+    radial-gradient(rgba(255, 255, 255, 0.05) 0.7px, transparent 0.8px),
+    radial-gradient(rgba(255, 255, 255, 0.03) 0.8px, transparent 0.9px);
+  background-size: 3px 3px, 4px 4px;
+  background-position: 0 0, 1px 1px;
+  opacity: 0.28;
+}
+
+.tubil-pin-icon {
+  background: transparent;
+  border: none;
+}
+
+.tubil-pin {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  filter: drop-shadow(0 10px 12px rgba(15, 23, 42, 0.18));
+}
+
+.tubil-pin__head {
+  min-width: 40px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: var(--pin-color, #1d4ed8);
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-align: center;
+  border: 2px solid rgba(255, 255, 255, 0.92);
+}
+
+.tubil-pin__point {
+  width: 16px;
+  height: 16px;
+  margin-top: -2px;
+  background: var(--pin-color, #1d4ed8);
+  transform: rotate(45deg);
+  border-radius: 2px 2px 14px 2px;
+  border-right: 2px solid rgba(255, 255, 255, 0.92);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.92);
+}
+
+.leaflet-container {
+  background: #dbeafe;
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 14px;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.18);
+}
+
+.leaflet-popup-content {
+  margin: 12px 14px;
+  font-family: 'Manrope', sans-serif;
+}
+
+.leaflet-container {
+  border-radius: 16px;
+}
+
+.MuiCard-root {
+  animation: tubilRiseIn 300ms ease-out;
+}
+
+.MuiButton-root,
+.MuiChip-root,
+.MuiCard-root {
+  transition: transform 160ms ease, box-shadow 180ms ease, background-color 160ms ease;
+}
+
+.MuiButton-root:active {
+  transform: translateY(1px);
+}
+
+.MuiButton-root:focus-visible,
+.MuiChip-root:focus-visible {
+  outline: 2px solid rgba(249, 214, 110, 0.78);
+  outline-offset: 2px;
+}
+
+[role="button"]:focus-visible {
+  outline: 2px solid rgba(249, 214, 110, 0.78);
+  outline-offset: 2px;
+}
+
+.tubil-nav-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.6) transparent;
+}
+
+.tubil-nav-scroll::-webkit-scrollbar {
+  height: 7px;
+}
+
+.tubil-nav-scroll::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.6);
+  border-radius: 999px;
+}
+
+.tubil-nav-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+@keyframes tubilRiseIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes tubilFloat {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(0, -12px, 0) scale(1.04);
+  }
+}
+
+@keyframes tubilRayFloat {
+  0%,
+  100% {
+    opacity: 0.78;
+    transform: translate3d(0, 0, 0) rotate(-18deg) scale(1);
+  }
+  50% {
+    opacity: 0.98;
+    transform: translate3d(0, 1.4vh, 0) rotate(-16deg) scale(1.03);
+  }
+}
+
+@keyframes tubilOrbFloat {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(0, -14px, 0) scale(1.06);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tubil-ray,
+  .tubil-orb,
+  .MuiCard-root {
+    animation: none !important;
+  }
+}
