@@ -1,2 +1,2 @@
 -- AlterTable
-ALTER TABLE `trip` ADD COLUMN `durationMin` DOUBLE NULL;
+ALTER TABLE `Trip` ADD COLUMN `durationMin` DOUBLE NULL;

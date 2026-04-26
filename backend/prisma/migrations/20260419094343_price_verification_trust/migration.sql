@@ -1,8 +1,8 @@
 -- AlterTable
-ALTER TABLE `fuelprice` ADD COLUMN `verificationScore` INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE `FuelPrice` ADD COLUMN `verificationScore` INTEGER NOT NULL DEFAULT 0;
 
 -- AlterTable
-ALTER TABLE `user` ADD COLUMN `reliabilityScore` DOUBLE NOT NULL DEFAULT 0.5;
+ALTER TABLE `User` ADD COLUMN `reliabilityScore` DOUBLE NOT NULL DEFAULT 0.5;
 
 -- CreateTable
 CREATE TABLE `FuelPriceVote` (
