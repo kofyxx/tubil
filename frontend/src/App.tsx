@@ -967,6 +967,14 @@ function App() {
     });
   }, [stations, minPrice, maxPrice, selectedStationId, location.lat, location.lon, mapRoute, locationAccuracyM, user?.isAdmin, stationForm.latitude, stationForm.longitude]);
 
+  const clearAuthForm = () => {
+    setDisplayName("");
+    setEmail("");
+    setPassword("");
+    setShowPassword(false);
+    setAuthMode("login");
+  };
+
   const handleRegister = async () => {
     setError("");
     if (password.trim().length < 8) {
@@ -981,6 +989,7 @@ function App() {
       setToken(nextToken);
       setUser(response.data.user as AuthUser);
       setDashboardMode("user");
+      clearAuthForm();
       setOkMessage("Welcome to Tubil. Your account is ready.");
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -1004,6 +1013,7 @@ function App() {
     setUser(loggedUser);
     setDashboardMode(loggedUser.isAdmin ? "admin" : "user");
     setActiveSection(loggedUser.isAdmin ? "admin" : "map");
+    clearAuthForm();
     setOkMessage("Login successful.");
   };
 
@@ -1374,6 +1384,7 @@ function App() {
     setLeaderboard([]);
     setActiveSection("map");
     setDashboardMode("user");
+    clearAuthForm();
   };
 
   const canManageAdminContent = Boolean(user?.isAdmin);
