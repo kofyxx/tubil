@@ -76,7 +76,7 @@ export const LandingView = ({
     <Container maxWidth="xl" sx={{ py: { xs: 3, md: 6 } }}>
       <Grid container spacing={3.5} sx={{ alignItems: "stretch" }}>
         <Grid size={{ xs: 12, md: 7 }}>
-          <Card sx={{ borderRadius: 5, p: { xs: 3, md: 5 }, position: "relative", overflow: "hidden" }}>
+          <Card sx={{ borderRadius: { xs: 2.5, md: 5 }, p: { xs: 3, md: 5 }, position: "relative", overflow: "hidden" }}>
             <Box sx={{ position: "absolute", inset: 0, pointerEvents: "none", background: darkMode ? "radial-gradient(circle at 20% 15%, rgba(249, 214, 110, 0.2), transparent 24%), radial-gradient(circle at 78% 10%, rgba(125, 211, 252, 0.14), transparent 22%)" : "radial-gradient(circle at 20% 15%, rgba(249, 214, 110, 0.22), transparent 24%), radial-gradient(circle at 78% 10%, rgba(37, 99, 235, 0.12), transparent 22%)" }} />
             <Stack spacing={2.2} sx={{ position: "relative", zIndex: 1 }}>
               <Stack direction="row" spacing={1} sx={{ flexWrap: "wrap" }}>
@@ -110,7 +110,7 @@ export const LandingView = ({
         </Grid>
 
         <Grid size={{ xs: 12, md: 5 }}>
-          <Card sx={{ borderRadius: 5, p: { xs: 2.5, md: 3.5 }, height: "100%", position: "relative", overflow: "hidden", border: darkMode ? "1px solid rgba(255,255,255,0.06)" : "1px solid rgba(15,23,42,0.08)", background: darkMode ? "rgba(6, 10, 20, 0.5)" : "rgba(255, 252, 247, 0.68)", boxShadow: "none", backdropFilter: "blur(22px) saturate(165%)" }}>
+          <Card sx={{ borderRadius: { xs: 2.5, md: 5 }, p: { xs: 2.5, md: 3.5 }, height: "100%", position: "relative", overflow: "hidden", border: darkMode ? "1px solid rgba(255,255,255,0.06)" : "1px solid rgba(15,23,42,0.08)", background: darkMode ? "rgba(6, 10, 20, 0.5)" : "rgba(255, 252, 247, 0.68)", boxShadow: "none", backdropFilter: "blur(22px) saturate(165%)" }}>
             <Box sx={{ position: "absolute", inset: 0, pointerEvents: "none", background: darkMode ? "radial-gradient(circle at top right, rgba(249, 214, 110, 0.08), transparent 30%), radial-gradient(circle at top left, rgba(125, 211, 252, 0.08), transparent 28%)" : "radial-gradient(circle at top right, rgba(249, 214, 110, 0.12), transparent 30%), radial-gradient(circle at top left, rgba(37, 99, 235, 0.06), transparent 28%)" }} />
             <Stack spacing={2.2} sx={{ position: "relative", zIndex: 1 }}>
               <Box>
