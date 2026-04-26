@@ -13,7 +13,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import type { FormEvent } from "react";
+import { useRef, type FormEvent } from "react";
 
 type LandingViewProps = {
   darkMode: boolean;
@@ -44,6 +44,22 @@ export const LandingView = ({
   setShowPassword,
   onSubmitAuth,
 }: LandingViewProps) => {
+  const authCardRef = useRef<HTMLDivElement | null>(null);
+
+  const handleAuthFieldFocus = () => {
+    if (!window.matchMedia("(max-width: 900px)").matches) {
+      return;
+    }
+
+    window.setTimeout(() => {
+      authCardRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+        inline: "nearest",
+      });
+    }, 160);
+  };
+
   const authInputSx = {
     "& .MuiOutlinedInput-root": {
       bgcolor: darkMode ? "rgba(9, 15, 29, 0.72)" : "rgba(255, 255, 255, 0.72)",
@@ -109,8 +125,8 @@ export const LandingView = ({
           </Card>
         </Grid>
 
-        <Grid size={{ xs: 12, md: 5 }}>
-          <Card sx={{ borderRadius: { xs: 2.5, md: 5 }, p: { xs: 2.5, md: 3.5 }, height: "100%", position: "relative", overflow: "hidden", border: darkMode ? "1px solid rgba(255,255,255,0.06)" : "1px solid rgba(15,23,42,0.08)", background: darkMode ? "rgba(6, 10, 20, 0.5)" : "rgba(255, 252, 247, 0.68)", boxShadow: "none", backdropFilter: "blur(22px) saturate(165%)" }}>
+        <Grid size={{ xs: 12, md: 5 }} sx={{ scrollMarginTop: { xs: 74, md: 96 } }}>
+          <Card ref={authCardRef} sx={{ borderRadius: { xs: 2.5, md: 5 }, p: { xs: 2.5, md: 3.5 }, height: "100%", position: "relative", overflow: "hidden", border: darkMode ? "1px solid rgba(255,255,255,0.06)" : "1px solid rgba(15,23,42,0.08)", background: darkMode ? "rgba(6, 10, 20, 0.5)" : "rgba(255, 252, 247, 0.68)", boxShadow: "none", backdropFilter: "blur(22px) saturate(165%)" }}>
             <Box sx={{ position: "absolute", inset: 0, pointerEvents: "none", background: darkMode ? "radial-gradient(circle at top right, rgba(249, 214, 110, 0.08), transparent 30%), radial-gradient(circle at top left, rgba(125, 211, 252, 0.08), transparent 28%)" : "radial-gradient(circle at top right, rgba(249, 214, 110, 0.12), transparent 30%), radial-gradient(circle at top left, rgba(37, 99, 235, 0.06), transparent 28%)" }} />
             <Stack spacing={2.2} sx={{ position: "relative", zIndex: 1 }}>
               <Box>
@@ -125,9 +141,9 @@ export const LandingView = ({
                     <Button fullWidth type="button" variant="outlined" onClick={() => setAuthMode("register")} sx={{ bgcolor: authMode === "register" ? (darkMode ? "rgba(249, 214, 110, 0.14)" : "rgba(184, 115, 51, 0.1)") : "transparent", color: authMode === "register" ? (darkMode ? "#fde68a" : "#8f5a22") : darkMode ? "#bac8dd" : "#516273", borderColor: authMode === "register" ? (darkMode ? "rgba(249, 214, 110, 0.38)" : "rgba(184, 115, 51, 0.3)") : (darkMode ? "rgba(255,255,255,0.12)" : "rgba(15, 23, 42, 0.12)") }}>Register</Button>
                   </Stack>
                   {authMode === "register" ? <Typography variant="caption" sx={{ color: darkMode ? "#8ea0bc" : "#58697a" }}>New accounts are always created as user accounts.</Typography> : null}
-                  {authMode === "register" ? <TextField label="Display name" value={displayName} onChange={(event) => setDisplayName(event.target.value)} autoComplete="nickname" name="displayName" sx={authInputSx} /> : null}
-                  <TextField label="Email" value={email} onChange={(event) => setEmail(event.target.value)} autoComplete="email" name="email" sx={authInputSx} />
-                  <TextField type={showPassword ? "text" : "password"} label="Password" value={password} onChange={(event) => setPassword(event.target.value)} autoComplete={authMode === "register" ? "new-password" : "current-password"} name="password" helperText={authMode === "register" ? "Use at least 8 characters." : undefined} sx={authInputSx} slotProps={{ input: { endAdornment: <InputAdornment position="end"><IconButton aria-label={showPassword ? "Hide password" : "Show password"} onClick={() => setShowPassword((prev) => !prev)} edge="end" sx={{ color: darkMode ? "#bac8dd" : "#52606f" }}>{showPassword ? <VisibilityOff /> : <Visibility />}</IconButton></InputAdornment> } }} />
+                  {authMode === "register" ? <TextField label="Display name" value={displayName} onChange={(event) => setDisplayName(event.target.value)} onFocus={handleAuthFieldFocus} autoComplete="nickname" name="displayName" sx={authInputSx} /> : null}
+                  <TextField label="Email" value={email} onChange={(event) => setEmail(event.target.value)} onFocus={handleAuthFieldFocus} autoComplete="email" name="email" sx={authInputSx} />
+                  <TextField type={showPassword ? "text" : "password"} label="Password" value={password} onChange={(event) => setPassword(event.target.value)} onFocus={handleAuthFieldFocus} autoComplete={authMode === "register" ? "new-password" : "current-password"} name="password" helperText={authMode === "register" ? "Use at least 8 characters." : undefined} sx={authInputSx} slotProps={{ input: { endAdornment: <InputAdornment position="end"><IconButton aria-label={showPassword ? "Hide password" : "Show password"} onClick={() => setShowPassword((prev) => !prev)} edge="end" sx={{ color: darkMode ? "#bac8dd" : "#52606f" }}>{showPassword ? <VisibilityOff /> : <Visibility />}</IconButton></InputAdornment> } }} />
                   <Button fullWidth type="submit" variant="contained" sx={{ bgcolor: darkMode ? "#f9d66e" : "#b87333", color: darkMode ? "#10212f" : "#ffffff", border: darkMode ? "1px solid rgba(249, 214, 110, 0.4)" : "1px solid rgba(184, 115, 51, 0.8)", boxShadow: "none" }}>{authMode === "register" ? "Create Account" : "Login Account"}</Button>
                 </Stack>
               </Box>
